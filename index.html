@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        nav button:hover {
+            background: var(--light-gray);
+        }
+
+        /* Home Page Styles */
+        .home-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .home-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: left;
+            border-top: 4px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        /* Page Container Styles */
+        .page-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .page-header i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .page-header h2 {
+            font-size: 28px;
+            color: var(--primary-dark);
+        }
+
+        .page-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border: 2px dashed var(--light-gray);
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-upload-label i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Analysis Results */
+        .results-container {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .score-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .score-text {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .score-bar {
+            height: 12px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .recommendations {
+            margin-top: 30px;
+        }
+
+        .recommendations h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .recommendations ul {
+            padding-left: 20px;
+        }
+
+        .recommendations li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .recommendations li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Roadmap Styles */
+        .roadmap-stages {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .roadmap-stage {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .stage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stage-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .stage-duration {
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .resources-list {
+            margin-top: 15px;
+        }
+
+        .resource-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: var(--light);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .resource-type {
+            background: var(--light-gray);
+            color: var(--dark);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .free-tag {
+            background: var(--success);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Interview Prep Styles */
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .question-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .option-label input {
+            margin-right: 12px;
+        }
+
+        .question-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .hint-section, .answer-section {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .home-title {
+                font-size: 32px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <span>Career Companion</span>
+            </div>
+            <nav>
+                <button id="homeBtn"><i class="fas fa-home"></i> Home</button>
+            </nav>
+        </header>
+
+        <main id="mainContent">
+            <!-- Home Page Content -->
+            <div id="homePage" class="home-container">
+                <h1 class="home-title">Your Career Development Toolkit</h1>
+                <p class="home-subtitle">Everything you need to land your dream job in one place - resume analysis, interview prep, career roadmaps, and more!</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card" data-page="resumeAnalyzer">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Resume Analyzer</h3>
+                        <p>Get your resume analyzed and improved with AI. Receive a score and recommendations to make your resume stand out.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-page="domainRoadmap">
+                        <div class="feature-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <h3>Domain & Roadmap</h3>
+                        <p>Get a complete roadmap for your chosen domain. Perfect for beginners to advanced professionals.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-page="interviewPrep">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Interview Preparation</h3>
+                        <p>Practice interview questions with gamified levels. Improve your skills with hints and explanations.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-page="coverLetter">
+                        <div class="feature-icon">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <h3>Cover Letter Generator</h3>
+                        <p>Create personalized cover letters tailored to your dream job in seconds.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-page="jobMatch">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Job Match + Skill Gap</h3>
+                        <p>Discover how well you match with jobs and identify skills you need to improve.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-page="resumeMaker">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3>ATS Free Resume Maker</h3>
+                        <p>Create ATS-friendly resumes from scratch with our easy-to-use builder.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resume Analyzer Page (initially hidden) -->
+            <div id="resumeAnalyzerPage" class="page-container" style="display: none;">
+                <div class="page-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Resume Analyzer</h2>
+                </div>
+                <p class="page-description">Upload your resume to get AI-powered analysis and improvement suggestions. We accept PDF, DOCX, and image files.</p>
+                
+                <div class="form-group">
+                    <label>Upload Your Resume</label>
+                    <div class="file-upload">
+                        <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                        <div class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload or drag and drop</p>
+                            <small>Max file size: 5MB</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="analyzeBtn" class="btn btn-primary">
+                    <i class="fas fa-chart-line"></i> Analyze Resume
+                </button>
+                
+                <div id="analysisResults" class="results-container" style="display: none;">
+                    <div class="score-container">
+                        <div class="score-value">78</div>
+                        <div class="score-text">Resume Score</div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 78%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h3>Recommendations to Improve:</h3>
+                        <ul>
+                            <li>Add more quantifiable achievements (e.g., "Increased conversion by 30%")</li>
+                            <li>Improve formatting for better readability</li>
+                            <li>Include more relevant keywords for your target job</li>
+                            <li>Expand work experience descriptions</li>
+                            <li>Add a professional summary section</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-success">
+                        <i class="fas fa-download"></i> Download Improved Resume
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Domain Roadmap Page (initially hidden) -->
+            <div id="domainRoadmapPage" class="page-container" style="display: none;">
+                <div class="page-header">
+                    <i class="fas fa-road"></i>
+                    <h2>Domain & Roadmap</h2>
+                </div>
+                <p class="page-description">Enter a domain to get a complete learning roadmap. Perfect for beginners to advanced professionals.</p>
+                
+                <div class="form-group">
+                    <label>Enter Your Desired Domain</label>
+                    <input type="text" class="form-control" id="domainInput" placeholder="e.g., Frontend Development, Data Science, Cybersecurity">
+                </div>
+                
+                <button id="generateRoadmapBtn" class="btn btn-primary">
+                    <i class="fas fa-directions"></i> Generate Roadmap
+                </button>
+                
+                <div id="roadmapResults" style="display: none;">
+                    <div class="page-header" style="margin: 30px 0 20px;">
+                        <i class="fas fa-map-signs"></i>
+                        <h2>Frontend Development Roadmap</h2>
+                    </div>
+                    
+                    <div class="roadmap-stages">
+                        <div class="roadmap-stage">
+                            <div class="stage-header">
+                                <div class="stage-title">Foundation</div>
+                                <div class="stage-duration">1-2 Months</div>
+                            </div>
+                            <p>Learn the basics of web development and programming fundamentals.</p>
+                            <div class="resources-list">
+                                <div class="resource-item">
+                                    <span>HTML & CSS Fundamentals</span>
+                                    <span class="resource-type">Course</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>JavaScript Basics</span>
+                                    <span class="resource-type">Course</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>Responsive Design Principles</span>
+                                    <span class="resource-type">Article</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="roadmap-stage">
+                            <div class="stage-header">
+                                <div class="stage-title">Core Skills</div>
+                                <div class="stage-duration">3-5 Months</div>
+                            </div>
+                            <p>Master core frontend technologies and frameworks.</p>
+                            <div class="resources-list">
+                                <div class="resource-item">
+                                    <span>React.js Fundamentals</span>
+                                    <span class="free-tag">FREE</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>State Management with Redux</span>
+                                    <span class="resource-type">Course</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>Modern CSS with Flexbox/Grid</span>
+                                    <span class="free-tag">FREE</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="roadmap-stage">
+                            <div class="stage-header">
+                                <div class="stage-title">Advanced Concepts</div>
+                                <div class="stage-duration">2-4 Months</div>
+                            </div>
+                            <p>Learn advanced concepts and modern development practices.</p>
+                            <div class="resources-list">
+                                <div class="resource-item">
+                                    <span>Performance Optimization</span>
+                                    <span class="resource-type">Course</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>Testing with Jest</span>
+                                    <span class="free-tag">FREE</span>
+                                </div>
+                                <div class="resource-item">
+                                    <span>TypeScript for React</span>
+                                    <span class="resource-type">Course</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success">
+                        <i class="fas fa-download"></i> Download Roadmap PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Interview Preparation Page (initially hidden) -->
+            <div id="interviewPrepPage" class="page-container" style="display: none;">
+                <div class="page-header">
+                    <i class="fas fa-comments"></i>
+                    <h2>Interview Preparation</h2>
+                </div>
+                <p class="page-description">Practice interview questions with gamified levels. Improve your skills with hints and explanations.</p>
+                
+                <div class="game-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">Level 2</div>
+                        <div class="stat-label">Current Level</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">850</div>
+                        <div class="stat-label">Your Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">01:25</div>
+                        <div class="stat-label">Time Remaining</div>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-header">
+                        <span>Question 3 of 10</span>
+                        <span>Difficulty: Medium</span>
+                    </div>
+                    
+                    <div class="question-text">
+                        What is the virtual DOM in React and how does it improve performance?
+                    </div>
+                    
+                    <div class="options-container">
+                        <label class="option-label">
+                            <input type="radio" name="answer"> 
+                            A virtual representation of the actual DOM that allows React to batch updates
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="answer"> 
+                            A lightweight version of the DOM used for server-side rendering
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="answer"> 
+                            A security feature that prevents XSS attacks in React applications
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="answer"> 
+                            A testing environment for React components
+                        </label>
+                    </div>
+                    
+                    <div class="question-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-lightbulb"></i> Get Hint
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Answer
+                        </button>
+                    </div>
+                    
+                    <div class="hint-section" style="display: none;">
+                        <h3><i class="fas fa-lightbulb"></i> Hint</h3>
+                        <p>The virtual DOM is a programming concept where a virtual representation of the UI is kept in memory. React uses it to determine what changed and update the actual DOM efficiently.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other pages would follow the same pattern -->
+        </main>
+        
+        <footer>
+            <p>Career Companion App &copy; 2023 | Your All-in-One Career Development Toolkit</p>
+            <p>Created with ❤️ for job seekers and career changers</p>
+        </footer>
+    </div>
+
+    <script>
+        // Page Navigation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const page = card.dataset.page;
+                showPage(page + 'Page');
+            });
+        });
+
+        document.getElementById('homeBtn').addEventListener('click', () => {
+            showPage('homePage');
+        });
+
+        // Resume Analyzer
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            // Simulate analysis
+            document.getElementById('analysisResults').style.display = 'block';
+            
+            // Show success message
+            alert('Resume analyzed successfully! Your results are ready.');
+        });
+
+        // Domain Roadmap
+        document.getElementById('generateRoadmapBtn').addEventListener('click', () => {
+            const domain = document.getElementById('domainInput').value;
+            if (!domain) {
+                alert('Please enter a domain first');
+                return;
+            }
+            
+            // Simulate roadmap generation
+            document.getElementById('roadmapResults').style.display = 'block';
+            
+            // Update title
+            document.querySelector('#roadmapResults .stage-title').textContent = 
+                domain + ' Roadmap';
+        });
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-container, .home-container').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show requested page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show home page by default
+            showPage('homePage');
+        });
+    </script>
+</body>
+</html>
