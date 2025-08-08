@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPro Assistant | Career Development Toolkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        /* Main Content */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.05"/><circle cx="20" cy="20" r="5" fill="%234361ee" opacity="0.1"/><circle cx="50" cy="50" r="8" fill="%234361ee" opacity="0.1"/><circle cx="80" cy="80" r="5" fill="%234361ee" opacity="0.1"/></svg>');
+            background-size: cover;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--dark);
+            opacity: 0.9;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-header i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-body p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            flex-grow: 1;
+        }
+        
+        .card-footer {
+            padding: 0 1.5rem 1.5rem;
+            text-align: center;
+        }
+        
+        .btn-card {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        /* Feature Pages */
+        .feature-page {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 2.5rem;
+            margin: 2rem 0;
+            display: none;
+        }
+        
+        .feature-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+        
+        .page-header h2 {
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .back-btn {
+            background: #f0f0f0;
+            color: var(--dark);
+            padding: 0.75rem 1.25rem;
+        }
+        
+        .back-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .result-container {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .result-container.active {
+            display: block;
+        }
+        
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .improvement-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .improvement-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .improvement-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .improvement-list li i {
+            color: var(--success);
+            margin-top: 0.25rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        /* Interview Prep Styles */
+        .quiz-container {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .option {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .option:hover {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .hint-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+            display: none;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            margin-top: 3rem;
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            background: none;
+            border: none;
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.75rem;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1>CareerPro Assistant</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Your All-in-One Career Development Toolkit</h2>
+            <p>Powered by AI technology, CareerPro Assistant helps you analyze, improve, and prepare for your dream career with personalized tools and insights.</p>
+            <button class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="features-grid">
+            <!-- Resume Analyzer -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Resume Analyzer</h3>
+                </div>
+                <div class="card-body">
+                    <p>Upload your resume and get an instant analysis with a score and improvement recommendations. Download the enhanced version with one click.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="resume-analyzer">
+                        <i class="fas fa-chart-line"></i> Analyze Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Domain & Roadmap -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-road"></i>
+                    <h3>Domain & Roadmap</h3>
+                </div>
+                <div class="card-body">
+                    <p>Enter your desired career domain and get a complete, step-by-step roadmap to become an expert in that field. Download as PDF.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="domain-roadmap">
+                        <i class="fas fa-download"></i> Get Roadmap
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Interview Preparation -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-comments"></i>
+                    <h3>Interview Preparation</h3>
+                </div>
+                <div class="card-body">
+                    <p>Practice with interactive quizzes, get hints, and track your progress. Level up your interview skills with gamified challenges.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="interview-prep">
+                        <i class="fas fa-play-circle"></i> Start Practice
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Cover Letter -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3>Cover Letter</h3>
+                </div>
+                <div class="card-body">
+                    <p>Generate personalized cover letters based on your resume and target job. Tailor each application for maximum impact.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="cover-letter">
+                        <i class="fas fa-pen-alt"></i> Create Cover Letter
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Job Match + Skill Gap -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-search"></i>
+                    <h3>Job Match + Skill Gap</h3>
+                </div>
+                <div class="card-body">
+                    <p>Discover how well your skills match job requirements and identify skill gaps to focus on for career advancement.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="job-match">
+                        <i class="fas fa-chart-pie"></i> Analyze Skills
+                    </button>
+                </div>
+            </div>
+            
+            <!-- ATS Resume Maker -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-file-invoice"></i>
+                    <h3>ATS Resume Maker</h3>
+                </div>
+                <div class="card-body">
+                    <p>Create ATS-friendly resumes optimized to pass through Applicant Tracking Systems used by employers.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-card" data-feature="resume-maker">
+                        <i class="fas fa-magic"></i> Build Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature Pages -->
+        <!-- Resume Analyzer Page -->
+        <div class="feature-page" id="resume-analyzer-page">
+            <div class="page-header">
+                <h2><i class="fas fa-file-alt"></i> Resume Analyzer</h2>
+                <button class="btn back-btn" id="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </button>
+            </div>
+            
+            <div class="upload-area" id="resume-drop-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Your Resume</h3>
+                <p>Supported formats: PDF, DOCX, PNG, JPG (Max 5MB)</p>
+                <button class="btn btn-primary" style="margin-top: 1rem;">
+                    <i class="fas fa-folder-open"></i> Select File
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label for="target-role">Target Role (Optional)</label>
+                <input type="text" id="target-role" class="form-control" placeholder="e.g., Frontend Developer, Data Scientist">
+            </div>
+            
+            <div class="text-center">
+                <button class="btn btn-primary" id="analyze-btn">
+                    <i class="fas fa-chart-line"></i> Analyze Resume
+                </button>
+            </div>
+            
+            <div class="result-container" id="resume-result">
+                <h3><i class="fas fa-star"></i> Resume Analysis Report</h3>
+                <div class="score-display">82/100</div>
+                <p class="text-center">Good resume! Here are some areas to improve:</p>
+                
+                <ul class="improvement-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Quantify achievements:</strong> Add metrics to your accomplishments (e.g., "Improved page load time by 40%")
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Tailor for target role:</strong> Add more keywords related to "Frontend Developer" position
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Skills section:</strong> Move technical skills higher and add proficiency levels
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Formatting:</strong> Improve consistency in date formats and section headings
+                        </div>
+                    </li>
+                </ul>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-success">
+                        <i class="fas fa-download"></i> Download Improved Resume
+                    </button>
+                    <button class="btn btn-warning">
+                        <i class="fas fa-redo"></i> Re-analyze
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interview Prep Page -->
+        <div class="feature-page" id="interview-prep-page">
+            <div class="page-header">
+                <h2><i class="fas fa-comments"></i> Interview Preparation</h2>
+                <button class="btn back-btn" id="back-home-2">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </button>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>Level 3: Intermediate</span>
+                    <span>Question 5 of 10</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question">
+                    How would you explain the concept of closures in JavaScript to a non-technical person?
+                </div>
+                
+                <div class="options">
+                    <div class="option">
+                        Closures are functions that remember the environment in which they were created
+                    </div>
+                    <div class="option selected">
+                        Imagine you have a backpack. When you create a function, it gets a backpack that holds all the variables it can see around it at birth. Even when you take that function somewhere else, it still has its backpack with those original items.
+                    </div>
+                    <div class="option">
+                        Closures are a security feature that prevents access to certain variables
+                    </div>
+                    <div class="option">
+                        They're a type of function that automatically runs when the page loads
+                    </div>
+                </div>
+                
+                <button class="btn" id="show-hint">
+                    <i class="fas fa-lightbulb"></i> Show Hint
+                </button>
+                
+                <div class="hint-box" id="hint-box">
+                    <strong>Hint:</strong> Think about how functions can "remember" values from their surrounding context even after that context is gone. A good analogy often helps explain technical concepts to non-technical people.
+                </div>
+                
+                <div class="quiz-controls">
+                    <button class="btn">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-eye"></i> View Answer
+                    </button>
+                    <button class="btn btn-success">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <h3>Welcome Back</h3>
+                <p>Sign in to continue your career journey</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="login">Login</div>
+                <div class="tab" data-tab="signup">Sign Up</div>
+            </div>
+            
+            <div class="tab-content active" id="login-tab">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••">
+                </div>
+                
+                <div class="form-group text-right">
+                    <a href="#" style="color: var(--primary);">Forgot Password?</a>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                
+                <div class="text-center" style="margin-top: 1.5rem;">
+                    <p>Or continue with:</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 0.5rem;">
+                        <button class="btn" style="background: #4285F4; color: white;">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button class="btn" style="background: #4267B2; color: white;">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                        <button class="btn" style="background: #1DA1F2; color: white;">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="signup-tab">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" class="form-control" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" placeholder="••••••••">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" class="form-control" placeholder="••••••••">
+                </div>
+                
+                <div class="form-group">
+                    <div style="display: flex; align-items: flex-start;">
+                        <input type="checkbox" id="terms" style="margin-right: 10px; margin-top: 3px;">
+                        <label for="terms" style="display: inline;">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></label>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 CareerPro Assistant. All rights reserved.</p>
+            <p>AI-powered career development tools for job seekers and professionals.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Feature Navigation
+        document.querySelectorAll('.btn-card').forEach(button => {
+            button.addEventListener('click', function() {
+                const feature = this.getAttribute('data-feature');
+                document.querySelectorAll('.feature-page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                if (feature === 'resume-analyzer') {
+                    document.getElementById('resume-analyzer-page').classList.add('active');
+                    document.getElementById('resume-result').classList.add('active');
+                } else if (feature === 'interview-prep') {
+                    document.getElementById('interview-prep-page').classList.add('active');
+                }
+                
+                // Scroll to the feature
+                document.getElementById(feature + '-page').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Back buttons
+        document.querySelectorAll('.back-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.feature-page').forEach(page => {
+                    page.classList.remove('active');
+                });
+            });
+        });
+        
+        // Show hint
+        document.getElementById('show-hint').addEventListener('click', function() {
+            document.getElementById('hint-box').style.display = 'block';
+        });
+        
+        // Login modal
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.add('active');
+        });
+        
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.remove('active');
+        });
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update active tab
+                document.querySelectorAll('.tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show correct content
+                const tabName = this.getAttribute('data-tab');
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName + '-tab').classList.add('active');
+            });
+        });
+        
+        // Simulate resume analysis
+        document.getElementById('analyze-btn').addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-chart-line"></i> Analyze Resume';
+                document.getElementById('resume-result').classList.add('active');
+                document.getElementById('resume-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1500);
+        });
+        
+        // Drag and drop for resume upload
+        const dropArea = document.getElementById('resume-drop-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            dropArea.classList.add('drag-over');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('drag-over');
+        }
+        
+        dropArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+        
+        function handleFiles(files) {
+            if (files.length) {
+                const file = files[0];
+                if (file.type === 'application/pdf' || 
+                    file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                    file.type === 'image/jpeg' || 
+                    file.type === 'image/png') {
+                    
+                    dropArea.innerHTML = `
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                        <h3>${file.name}</h3>
+                        <p>Ready for analysis</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-sync-alt"></i> Change File
+                        </button>
+                    `;
+                } else {
+                    alert('Please upload a valid file (PDF, DOCX, JPG, PNG)');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
